@@ -1,6 +1,8 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('file-system');
+var EventEmitter = require('events');
+require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 var url = "http://buildingheights.org/?t=worlds-tallest-buildings";
 var baseFilePath = '../src/assets/';
@@ -72,9 +74,12 @@ function loopTd(td, keys) {
 
 			rowDataObj[correspondingKey] = getLinks(data);
 		
-		} else if(correspondingKey.toLowerCase() == "building name") {
+		} 
+		else if(correspondingKey.toLowerCase() == "building name") {
 			//get text within anchor only to omit *
-		} else {
+			rowDataObj[correspondingKey] = getBuildingName(data).trim();
+		}
+		 else {
 			
 			rowDataObj[correspondingKey] = data.text().trim();
 			
@@ -97,6 +102,13 @@ function getLinks(container) {
 	});
 
 	return linkArr;
+}
+
+function getBuildingName(container) {
+
+	var name = $(container).find('a').text();
+
+	return name;
 }
 
 
@@ -125,7 +137,7 @@ function downloadImages(dataList) {
 	var nameKey = "Building Name";
 
 	// for(var i = 0; i < dataList.length; i ++ ){
-	for(var i = 0; i < 5; i ++ ){
+	for(var i = 69; i < 90; i ++ ){
 
 		links = dataList[i]['Links'];
 		buildingName = dataList[i][nameKey];
@@ -134,8 +146,7 @@ function downloadImages(dataList) {
 		console.log('enter link of: ' + buildingName);
 		goToExternalLink(targetLink, buildingName);
 
-		sleepFor(1500);
-		
+		sleepFor(2000);	
 	}
 }
 function goToExternalLink(targetLink, buildingName) {
@@ -147,8 +158,8 @@ function goToExternalLink(targetLink, buildingName) {
 		var $ = cheerio.load(html);
 		var mainImgContainer = $('a.building-image').eq(0);
 
-		writeImage('../src/assets/img/building_outlines/' + buildingName, $, '#building-image-container', 1);
-		// writeImage('../src/assets/img/buildings/' + buildingName, $, mainImgContainer);
+		// writeImage(baseFilePath + 'img/building_outlines/' + buildingName, $, '#building-image-container', 1);
+		writeImage(baseFilePath + 'img/buildings/' + buildingName, $, mainImgContainer, 1);
 		
 
 	});
@@ -156,24 +167,35 @@ function goToExternalLink(targetLink, buildingName) {
 
 function writeImage(filePath, $, container, attempts) {
 
-	var baseImgUrl = "http://www.skyscrapercenter.com/";
-	var imgLink = $(container).children('img').attr('src');
-	var url = baseImgUrl + imgLink;
-
+	var url = $(container).children('img').attr('src');
 	console.log(url);
 
-	request(url)
-		.on('error', function(error) {
+	if(url === undefined) {
 
-			console.log('ERROR FAILED TO DOWNLOAD: ' + error);
-			writeImage(filePath, $, container, attempt ++ );
+		console.log('ERROR FAILED TO DOWNLOAD: ' + filePath);
+		writeImage(filePath, $, container, attempts ++ );
 
-			if(attemps > 3 ){
-				console.log('failed more than 3 times, not retrying');
-			}
+		if(attemps > 3 ){
+			console.log('failed more than 3 times, not retrying');
+		}
+	} else {
+		request(url).pipe(fs.createWriteStream(filePath + '.png' ));
+	}
+
+	
+
+	// request(url)
+	// 	.on('error', function(error) {
+
+	// 		// console.log('ERROR FAILED TO DOWNLOAD: ' + error);
+	// 		// writeImage(filePath, $, container, attempt ++ );
+
+	// 		// if(attemps > 3 ){
+	// 		// 	console.log('failed more than 3 times, not retrying');
+	// 		// }
 		
-		})
-		.pipe(fs.createWriteStream(filePath + '.png' ));
+	// 	})
+	// 	.pipe(fs.createWriteStream(filePath + '.png' ));
 };
 
 
