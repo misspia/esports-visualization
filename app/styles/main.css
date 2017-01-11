@@ -1,7 +1,9 @@
-/*https://bost.ocks.org/mike/map/step-7.html*/
-/*http://mapsam.com/d3-geo/*/
-/*vid*/
-/*https://www.dashingd3js.com/lessons/d3-geo-path*/
+/*https://bost.ocks.org/mike/map/step-7.html
+http://www.d3noob.org/2013/03/a-simple-d3js-map-explained.html
+http://davewood.me/blog/2014/04/09/drawing-a-world-map-with-d3/
+
+geo data:
+http://www.naturalearthdata.com/downloads/50m-cultural-vectors/*/
 
 .subunit.SCT { fill: #ddc; }
 .subunit.WLS { fill: #cdd; }
@@ -41,4 +43,16 @@ text {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   pointer-events: none;
+}
+
+
+/*world*/
+body{
+  padding:0;
+  margin:0;
+}
+path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
 }
