@@ -1,9 +1,0 @@
-{
-  "name": "reddit-scrape",
-  "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "dependencies": {
-    "snoowrap": "latest"
-  }
-}
