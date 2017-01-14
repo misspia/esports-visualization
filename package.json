@@ -18,9 +18,11 @@
   "homepage": "https://github.com/misspia/cyber-app-react#readme",
   "dependencies": {
     "cheerio": "latest",
+    "fs": "0.0.1-security",
     "jquery": "^3.1.1",
     "request": "latest",
-    "scraperjs": "^1.2.0"
+    "scraperjs": "^1.2.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browser-sync": "^2.18.2",
