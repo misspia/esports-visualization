@@ -16,6 +16,12 @@
     "url": "https://github.com/misspia/cyber-app-react/issues"
   },
   "homepage": "https://github.com/misspia/cyber-app-react#readme",
+  "dependencies": {
+    "cheerio": "latest",
+    "jquery": "^3.1.1",
+    "request": "latest",
+    "scraperjs": "^1.2.0"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.2",
     "cssnext": "^1.8.4",
