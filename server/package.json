@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cheerio": "latest",
+    "fs": "0.0.1-security",
+    "minimist": "^1.2.0",
+    "request": "latest",
+    "scraperjs": "^1.2.0",
+    "underscore": "^1.8.3"
+  }
+}
