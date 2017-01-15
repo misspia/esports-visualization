@@ -1,12 +1,12 @@
-var mapDataPath = '/app/data/map/';
-
+var dataPath = '/app/data/';
+var idPrefix = "iso-";
 
 var width = window.innerWidth,
     height = window.innerHeight;
 
 var projection = d3.geo.mercator()
     .center([0, 5])
-    .scale((width / 640) * 100)
+    .scale((width / 10) * 1)
     .translate([width / 2, height / 2]);
     // .rotate([-180,0]);
 
@@ -19,36 +19,15 @@ var path = d3.geo.path()
 
 var g = svg.append("g");
 
-drawMap(width, height);
 
 
-function defineMap() {
-
-  
-}
 
 
-function drawMap(width, height) {
-
-
-// load and display the World
-d3.json(mapDataPath + "world-110m2.json", function(error, topology) {
-    g.selectAll("path")
-      .data(topojson.object(topology, topology.objects.countries)
-          .geometries)
-    .enter()
-      .append("path")
-      .attr("d", path)
-
-      markCities();
-});
-
-}
 
 
 function markCities() {
 
-  d3.csv(mapDataPath + "cities.csv", function(error, data) {
+  d3.csv(dataPath + "map/cities.csv", function(error, data) {
       g.selectAll("circle")
          .data(data)
          .enter()
@@ -63,9 +42,3 @@ function markCities() {
          .style("fill", "red");
   })
 }
-
-
-
-
-
-
