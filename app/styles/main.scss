@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
 body{
-  padding:0;
-  margin:0;
-  width:100vw;
-  height:100vh;
+  padding:0; margin:0;
   font-family: 'Open Sans', sans-serif;
+  width:100vw; height:100vh;
+  overflow: hidden;
+  
   font-weight:300;
   font-size:1em;
 }
@@ -35,6 +35,10 @@ path {
 .q7 { fill:rgb(8,81,156); }
 .q8 { fill:rgb(8,48,107); }
 
+.title {
+  font-weight: 400;
+  text-align:center;
+}
 
 .hidden {
     display: none;
@@ -49,11 +53,51 @@ path {
     min-width: 10em;
 
 
-    .title {
-      font-weight: 400;
-      text-align:center;
-    }
+
     .description {
       font-size: 0.8em;
     }
 }
+
+#options, #legend {
+  position:absolute;
+  bottom:0.5em;
+}
+
+#legend{
+  right:0;
+}
+
+#options {
+  left: 0.5em;
+  padding: 0.5em 0;
+  display:flex;
+  flex-direction: column;
+  min-width: 8em;
+  min-height: 9em;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0em 0.1em 0.5em #b3abab;
+
+  .game{
+    padding: 0.2em 0;
+    text-align:center;
+    cursor: pointer;
+
+  }
+  .active{
+    background-color: rgba(33, 150, 243, .2);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

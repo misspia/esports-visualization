@@ -1,19 +1,28 @@
-queue()
-    .defer(d3.json, dataPath + "map/world-110m2.json")
-    .defer(d3.json,dataPath + "esports/dota.json" )
-    .await(function(error, topology, players) {
-      if(error) throw error;
-      
-      countryEarnings = groupById(players);
-      quantile = setQuantile(countryEarnings);
-     
-      drawMap(topology, countryEarnings);
-      
-    });
+renderViz(selectedGame);
 
+function renderViz(game) {
 
-function drawMap(topology, countryEarnings) {
- 
+  queue()
+      .defer(d3.json, dataPath + "map/world-110m2.json")
+      .defer(d3.json,dataPath + "esports/" + game + ".json" )
+      .await(function(error, topology, players) {
+
+        if(error) throw error;
+
+        countryEarnings = groupById(players);
+        quantile = setQuantile(countryEarnings);
+       
+        createMap(topology, countryEarnings);
+        
+      });
+}
+
+function createMap(topology, countryEarnings) {
+    d3.select("#map svg").remove();
+    svg = newSvg();
+
+    g = svg.append("g");
+
       g.selectAll("path")
         .data(topojson.object(topology, topology.objects.countries)
             .geometries)
@@ -23,7 +32,7 @@ function drawMap(topology, countryEarnings) {
           .attr("id", function(d){ return idPrefix + d.id; })
           .attr("class", function(d) {  return colorClass(countryEarnings[d.id], "earnings") })
           .on('mousemove', function(d) { tooltipEnter(d); })
-          .on('mouseout', function() { console.log('out'); tooltip.classed('hidden', true); });  
+          .on('mouseout', function() { tooltip.classed('hidden', true); });  
 }
 
 
@@ -48,9 +57,7 @@ function groupById(arr) {
       }
     }
   }
-  console.log(obj)
   return obj;
-
 }
 
 function currencyToInt(num) {

@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>World</title>
+	<title>Esports Earnings</title>
 	<link rel="stylesheet" type="text/css" href="app/styles/main.css">
 </head>
 <body>
+	<!-- <h1 id="title">Esports Earnings</h1> -->
 	<div id="map"></div>
-
+	<div id="options">
+		<span class="title">GAMES</span>
+		<span class="game active" onclick="selectGame(this, 'dota')">Dota2</span>
+		<span class="game" onclick="selectGame(this, 'lol')">LoL</span>
+		<span class="game" onclick="selectGame(this, 'csgo')">CS:GO</span>
+		<span class="game" onclick="selectGame(this, 'sc2')">SC2</span>
+	</div>
+	<div id="legend">
+		<span>Legend</span>
+	</div>
 
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="//d3js.org/queue.v1.min.js"></script>
@@ -15,8 +25,9 @@
 
 	<script type="text/javascript" src="app/js/config.js"></script>
 	<script type="text/javascript" src="app/js/color.js"></script>
+	<script type="text/javascript" src="app/js/mapOptions.js"></script>
 	<script type="text/javascript" src="app/js/map.js"></script>
 </body>
 </html>
 
-<!-- // http://bl.ocks.org/mbostock/8ca036b3505121279daf -->
+<!-- https://bl.ocks.org/mbostock/4060606 -->
