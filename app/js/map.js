@@ -11,14 +11,18 @@ function renderViz(game) {
 
         countryEarnings = groupById(players);
         quantile = setQuantile(countryEarnings);
+        console.log(quantile.quantiles());
        
         createMap(topology, countryEarnings);
+        populateLegend(quantile.quantiles());
+
         
       });
 }
 
 function createMap(topology, countryEarnings) {
     d3.select("#map svg").remove();
+    
     svg = newSvg();
 
     g = svg.append("g");
@@ -30,7 +34,7 @@ function createMap(topology, countryEarnings) {
           .append("path")
           .attr("d", path)
           .attr("id", function(d){ return idPrefix + d.id; })
-          .attr("class", function(d) {  return colorClass(countryEarnings[d.id], "earnings") })
+          .attr("class", function(d) { return colorClass(countryEarnings[d.id], "earnings") })
           .on('mousemove', function(d) { tooltipEnter(d); })
           .on('mouseout', function() { tooltip.classed('hidden', true); });  
 }
@@ -69,6 +73,12 @@ function currencyToInt(num) {
 
 function intToCurrency(num) {
 
+  if(typeof num != 'undefined') {
+    return "$" + num.toFixed(0).replace(/./g, function(c, i, a) {
+        return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+   });
+  }
+    
 }
 
 function tooltipEnter(d) {
@@ -88,12 +98,15 @@ function tooltipEnter(d) {
 
 function tooltipContents(country) {
 
+  earnings = intToCurrency(country.earnings);
+
     var contents = '<span class="title">' + country.name + '</span></br>' +
-                    '<span class="description"> Total Earnings: ' + country.earnings + '</span></br>' +
+                    '<span class="description"> Total Earnings: ' + earnings + '</span></br>' +
                     '<span class="description"> Published Players: ' + country.players + '</span>';
 
     return contents;
 }
+
 
 
 

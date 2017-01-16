@@ -10,30 +10,21 @@ body{
   font-size:1em;
 }
 
-#map{
-  // background-color: #333;
-  width:100%; height: 100%;
-}
-
-g{
-  width: 100%; height: 100%;
-}
-
 path {
   stroke: white;
   stroke-width: 0.25px;
   fill: #262626;
 }
 
-.q0 { fill:rgb(247,251,255); }
-.q1 { fill:rgb(222,235,247); }
-.q2 { fill:rgb(198,219,239); }
-.q3 { fill:rgb(158,202,225); }
-.q4 { fill:rgb(107,174,214); }
-.q5 { fill:rgb(66,146,198); }
-.q6 { fill:rgb(33,113,181); }
-.q7 { fill:rgb(8,81,156); }
-.q8 { fill:rgb(8,48,107); }
+.q0 { fill:rgb(234, 240, 245); background-color: rgb(234, 240, 245); }
+.q1 { fill:rgb(213, 226, 239); background-color: rgb(213, 226, 239); }
+.q2 { fill:rgb(183, 204, 224); background-color: rgb(183, 204, 224); }
+.q3 { fill:rgb(142, 189, 214); background-color: rgb(142, 189, 214); }
+.q4 { fill:rgb(107, 174, 214); background-color: rgb(107, 174, 214); }
+.q5 { fill:rgb(66,146,198); background-color: rgb(66,146,198); }
+.q6 { fill:rgb(33,113,181); background-color: rgb(33,113,181); }
+.q7 { fill:rgb(8,81,156); background-color: rgb(8,81,156); }
+.q8 { fill:rgb(8,48,107); background-color: rgb(8,48,107); }
 
 .title {
   font-weight: 400;
@@ -52,8 +43,6 @@ path {
     position: absolute;
     min-width: 10em;
 
-
-
     .description {
       font-size: 0.8em;
     }
@@ -61,15 +50,11 @@ path {
 
 #options, #legend {
   position:absolute;
-  bottom:0.5em;
-}
-
-#legend{
-  right:0;
+  bottom:1em;
 }
 
 #options {
-  left: 0.5em;
+  right: 1em;
   padding: 0.5em 0;
   display:flex;
   flex-direction: column;
@@ -82,14 +67,42 @@ path {
     padding: 0.2em 0;
     text-align:center;
     cursor: pointer;
-
+    transition: all 0.3s;
   }
   .active{
     background-color: rgba(33, 150, 243, .2);
   }
 }
 
+#legend{
+  left:0.5em;
 
+  min-height:10em; width: 5em;
+
+  display:flex;
+  flex-direction: column;
+
+  .key{
+    width:1em;
+    height: 2em;
+    position:relative;
+
+    &:after{
+      content: ''; display: inline-block;
+      position:absolute;
+      bottom:0; 
+      width:1.1em; height: 0.05em;
+      background-color: #636ab3;
+    }
+
+    span {
+      font-size: 0.7em;
+      position:absolute;
+      bottom:-0.7em;
+      left: 2.5em;
+    }
+  }
+}
 
 
 

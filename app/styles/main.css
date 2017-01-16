@@ -9,45 +9,46 @@ body {
   font-weight: 300;
   font-size: 1em; }
 
-#map {
-  width: 100%;
-  height: 100%; }
-
-g {
-  width: 100%;
-  height: 100%; }
-
 path {
   stroke: white;
   stroke-width: 0.25px;
   fill: #262626; }
 
 .q0 {
-  fill: #f7fbff; }
+  fill: #eaf0f5;
+  background-color: #eaf0f5; }
 
 .q1 {
-  fill: #deebf7; }
+  fill: #d5e2ef;
+  background-color: #d5e2ef; }
 
 .q2 {
-  fill: #c6dbef; }
+  fill: #b7cce0;
+  background-color: #b7cce0; }
 
 .q3 {
-  fill: #9ecae1; }
+  fill: #8ebdd6;
+  background-color: #8ebdd6; }
 
 .q4 {
-  fill: #6baed6; }
+  fill: #6baed6;
+  background-color: #6baed6; }
 
 .q5 {
-  fill: #4292c6; }
+  fill: #4292c6;
+  background-color: #4292c6; }
 
 .q6 {
-  fill: #2171b5; }
+  fill: #2171b5;
+  background-color: #2171b5; }
 
 .q7 {
-  fill: #08519c; }
+  fill: #08519c;
+  background-color: #08519c; }
 
 .q8 {
-  fill: #08306b; }
+  fill: #08306b;
+  background-color: #08306b; }
 
 .title {
   font-weight: 400;
@@ -69,13 +70,10 @@ path {
 
 #options, #legend {
   position: absolute;
-  bottom: 0.5em; }
-
-#legend {
-  right: 0; }
+  bottom: 1em; }
 
 #options {
-  left: 0.5em;
+  right: 1em;
   padding: 0.5em 0;
   display: flex;
   flex-direction: column;
@@ -86,6 +84,31 @@ path {
   #options .game {
     padding: 0.2em 0;
     text-align: center;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: all 0.3s; }
   #options .active {
     background-color: rgba(33, 150, 243, 0.2); }
+
+#legend {
+  left: 0.5em;
+  min-height: 10em;
+  width: 5em;
+  display: flex;
+  flex-direction: column; }
+  #legend .key {
+    width: 1em;
+    height: 2em;
+    position: relative; }
+    #legend .key:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      width: 1.1em;
+      height: 0.05em;
+      background-color: #636ab3; }
+    #legend .key span {
+      font-size: 0.7em;
+      position: absolute;
+      bottom: -0.7em;
+      left: 2.5em; }

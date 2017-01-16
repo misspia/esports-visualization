@@ -2,9 +2,9 @@ games = ['dota', 'lol', 'csgo', 'sc2'];
 selectedGame = "dota";
 
 function selectGame(el, game) {
-	console.log(el);
+
 	activeGameTab(el);
-	
+
 	switch(game){
 		
 		case games[0]:

@@ -1,7 +1,8 @@
 function colorClass(d, key) { 
-	if(typeof d != 'undefined') {
+		if(typeof d != 'undefined') {
 
 		var className = quantile(d[key]);
+
 		return className;
 	}
 }
