@@ -1,18 +1,15 @@
 queue()
     .defer(d3.json, dataPath + "map/world-110m2.json")
     .defer(d3.json,dataPath + "esports/dota.json" )
-    // .defer(d3.json,dataPath + "esports/league.json" )
     .await(function(error, topology, players) {
       if(error) throw error;
       
-      countryEarnings = sumByCountry(players);
-
+      countryEarnings = groupById(players);
       quantile = setQuantile(countryEarnings);
      
       drawMap(topology, countryEarnings);
-
       
-    })
+    });
 
 
 function drawMap(topology, countryEarnings) {
@@ -24,26 +21,34 @@ function drawMap(topology, countryEarnings) {
           .append("path")
           .attr("d", path)
           .attr("id", function(d){ return idPrefix + d.id; })
-          .attr("class", function(d) {  return colorClass(countryEarnings[d.id]) })
-       
+          .attr("class", function(d) {  return colorClass(countryEarnings[d.id], "earnings") })
+          .on('mousemove', function(d) { tooltipEnter(d); })
+          .on('mouseout', function() { console.log('out'); tooltip.classed('hidden', true); });  
 }
 
-function sumByCountry(arr) {
+
+
+function groupById(arr) {
   var newArr = [], obj = {}, country;
 
   for(var i = 0; i < arr.length; i ++) {
-
+    
     country = arr[i].code;
 
     if(country in obj) {
 
-      obj[country] += currencyToInt(arr[i].totalEarnings)
+      obj[country]["earnings"] += currencyToInt(arr[i].totalEarnings);
+      obj[country]["players"] +=1;
 
     } else {
-
-      obj[country] = currencyToInt(arr[i].totalEarnings)
+      obj[country] = {
+        earnings: currencyToInt(arr[i].totalEarnings),
+        players: 1,
+        name: arr[i].country
+      }
     }
   }
+  console.log(obj)
   return obj;
 
 }
@@ -55,6 +60,33 @@ function currencyToInt(num) {
 
 }
 
+function intToCurrency(num) {
+
+}
+
+function tooltipEnter(d) {
+  
+    var country = countryEarnings[d.id];
+
+    if(typeof country != 'undefined') {
+      var displayInfo = tooltipContents(country);
+
+      var mouse = d3.mouse(svg.node()).map(function(d) { return parseInt(d); });
+
+        tooltip.classed('hidden', false)
+            .attr('style', 'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
+            .html( displayInfo );
+    }
+}
+
+function tooltipContents(country) {
+
+    var contents = '<span class="title">' + country.name + '</span></br>' +
+                    '<span class="description"> Total Earnings: ' + country.earnings + '</span></br>' +
+                    '<span class="description"> Published Players: ' + country.players + '</span>';
+
+    return contents;
+}
 
 
 

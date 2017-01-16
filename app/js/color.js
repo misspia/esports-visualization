@@ -1,10 +1,9 @@
-function colorClass(d) { 
-  var className = quantile(d);
+function colorClass(d, key) { 
+	if(typeof d != 'undefined') {
 
-  if(typeof className != 'undefined' ) {
-
-    return className;
-  }
+		var className = quantile(d[key]);
+		return className;
+	}
 }
 
 function maxValue(data) {
@@ -30,7 +29,7 @@ function objToArr(obj) {
 	var arr = [];
 
 	Object.keys(obj).map(function(objectKey, index) {
-	    var value = obj[objectKey];
+	    var value = obj[objectKey]["earnings"];
 	    arr.push(value);
 	  });
 

@@ -1,17 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
 body {
   padding: 0;
   margin: 0;
   width: 100vw;
-  height: 100vh; }
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1em; }
 
 #map {
   width: 100%;
   height: 100%; }
 
-text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1em;
-  pointer-events: none; }
+g {
+  width: 100%;
+  height: 100%; }
 
 path {
   stroke: white;
@@ -44,3 +47,20 @@ path {
 
 .q8 {
   fill: #08306b; }
+
+.hidden {
+  display: none; }
+
+.tooltip {
+  color: #fff;
+  background-color: #000;
+  padding: .5em;
+  border-radius: 0.1em;
+  opacity: 0.8;
+  position: absolute;
+  min-width: 10em; }
+  .tooltip .title {
+    font-weight: 400;
+    text-align: center; }
+  .tooltip .description {
+    font-size: 0.8em; }
