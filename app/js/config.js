@@ -1,4 +1,4 @@
-var dataPath = '../../app/json/';
+var dataPath = 'app/json/';
 var idPrefix = "iso-";
 
 var width = window.innerWidth,
