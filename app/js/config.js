@@ -1,4 +1,4 @@
-var dataPath = '../../app/data/';
+var dataPath = '../data/';
 var idPrefix = "iso-";
 
 var width = window.innerWidth,
