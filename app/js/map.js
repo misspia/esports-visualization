@@ -1,22 +1,17 @@
 renderViz(selectedGame);
 
 function renderViz(game) {
-
   queue()
       .defer(d3.json, dataPath + "map/world-110m2.json")
       .defer(d3.json,dataPath + "esports/" + game + ".json" )
       .await(function(error, topology, players) {
-
         if(error) throw error;
 
         countryEarnings = groupById(players);
         quantile = setQuantile(countryEarnings);
-        console.log(quantile.quantiles());
        
         createMap(topology, countryEarnings);
-        populateLegend(quantile.quantiles());
-
-        
+        populateLegend(quantile.quantiles());     
       });
 }
 
@@ -55,9 +50,9 @@ function groupById(arr) {
 
     } else {
       obj[country] = {
+        name: arr[i].country,
         earnings: currencyToInt(arr[i].totalEarnings),
-        players: 1,
-        name: arr[i].country
+        players: 1     
       }
     }
   }
@@ -101,7 +96,7 @@ function tooltipContents(country) {
   earnings = intToCurrency(country.earnings);
 
     var contents = '<span class="title">' + country.name + '</span></br>' +
-                    '<span class="description"> Total Earnings: ' + earnings + '</span></br>' +
+                    '<span class="description"> Total Prize Money: ' + earnings + '</span></br>' +
                     '<span class="description"> Published Players: ' + country.players + '</span>';
 
     return contents;

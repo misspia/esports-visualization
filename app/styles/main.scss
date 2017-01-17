@@ -12,7 +12,7 @@ body{
 
 path {
   stroke: white;
-  stroke-width: 0.25px;
+  stroke-width: 0.02em;
   fill: #262626;
 }
 
@@ -26,8 +26,10 @@ path {
 .q7 { fill:rgb(8,81,156); background-color: rgb(8,81,156); }
 .q8 { fill:rgb(8,48,107); background-color: rgb(8,48,107); }
 
+
 .title {
   font-weight: 400;
+  padding-bottom:0.5em;
   text-align:center;
 }
 
@@ -47,25 +49,36 @@ path {
       font-size: 0.8em;
     }
 }
-
-#options, #legend {
-  position:absolute;
-  bottom:1em;
-}
-
-#options {
-  right: 1em;
-  padding: 0.5em 0;
+#games, #legend, #summary {
+  position:absolute; 
   display:flex;
   flex-direction: column;
-  min-width: 8em;
-  min-height: 9em;
+}
+#games, #legend {
+  left:0.5em;
+}
+#games{
+  top:1em;
+}
+#legend, #summary{
+  bottom: 0.5em;
+}
+#summary{
+  right:0.5em;
+}
+#games, #summary{
+  padding: 0.5em 0;
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0em 0.1em 0.5em #b3abab;
+}
+
+#games { 
+  text-align:center;
+  min-width: 8em;
+  min-height: 9em;
 
   .game{
-    padding: 0.2em 0;
-    text-align:center;
+    padding: 0.2em 0; 
     cursor: pointer;
     transition: all 0.3s;
   }
@@ -75,12 +88,7 @@ path {
 }
 
 #legend{
-  left:0.5em;
-
   min-height:10em; width: 5em;
-
-  display:flex;
-  flex-direction: column;
 
   .key{
     width:1em;
@@ -104,8 +112,10 @@ path {
   }
 }
 
-
-
+#summary{
+  height:12em; width: 25em; 
+  // border: solid 0.1em #000;
+}
 
 
 

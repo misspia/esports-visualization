@@ -4,14 +4,14 @@ var idPrefix = "iso-";
 var width = window.innerWidth,
     height = window.innerHeight;
 
-var projection = d3.geo.mercator()
+var projection = d3.geoMercator()
     .center([0, 0])
-    .scale((width / 600) * 70)
+    .scale((width / 600) * 80)
     .translate([width / 2, height / 2])
     .rotate([-10,0]);
 
 
- var path = d3.geo.path()
+ var path = d3.geoPath()
         .projection(projection);
 
 
@@ -28,20 +28,53 @@ var tooltip = d3.select('body').append('div')
             .attr('class', 'hidden tooltip');
 
 
-var legend = d3.select("#legend");
+function objToArr(obj, inputKey) {
+    var arr = [];
+    if(typeof inputKey != 'undefined' ) {
 
-function populateLegend(d) {
-    
-    legend.selectAll('.key').remove();
-
-    console.log(d.length)
-    for(var i = 0; i <= d.length; i ++) {
-        var legendKey = legend.append('div')
-            .attr('class', 'key q' + i )
-            .append('span')
-                .text( intToCurrency(d[i]) )
+        Object.keys(obj).map(function(objectKey, index) {
+            var value = obj[objectKey][inputKey];
+            arr.push(value);
+          });
+    } else {    
+        for(k in obj) {
+            arr.push(obj[k]);
+        }
     }
+        
+    return arr;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

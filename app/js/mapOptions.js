@@ -29,7 +29,7 @@ function selectGame(el, game) {
 }
 
 
-gameTabs = document.querySelectorAll('#options .game');
+gameTabs = document.querySelectorAll('#games .game');
 
 function activeGameTab(el){
 
