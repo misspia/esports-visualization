@@ -44,7 +44,6 @@ function groupById(arr) {
     country = arr[i].code;
 
     if(country in obj) {
-
       obj[country]["earnings"] += currencyToInt(arr[i].totalEarnings);
       obj[country]["players"] +=1;
 
@@ -60,9 +59,9 @@ function groupById(arr) {
 }
 
 function currencyToInt(num) {
-
-  num = parseInt(num.replace(/\D/g, ''))
-  return num
+  
+  num = Number(num.replace(/[^0-9\.]+/g,""));
+  return num;
 
 }
 
