@@ -14,6 +14,13 @@ var projection = d3.geoMercator()
  var path = d3.geoPath()
         .projection(projection);
 
+var gameNames = {
+    dota: "Dota 2",
+    lol: "League of Legends",
+    csgo: "CS:GO",
+    sc2: "SC II"
+}
+
 
 function newSvg() {
 
@@ -44,31 +51,6 @@ function objToArr(obj, inputKey) {
         
     return arr;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

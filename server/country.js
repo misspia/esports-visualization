@@ -25,7 +25,7 @@ function sleepFor( sleepDuration ){
     var now = new Date().getTime();
     while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
 }
-var tourn = JSON.parse(fs.readFileSync('./tournaments.json', 'utf8'));
+var tourn = JSON.parse(fs.readFileSync('/app/json/tournaments.json', 'utf8'));
 var request = require('request');
 var cheerio = require('cheerio');
 var $;

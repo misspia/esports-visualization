@@ -11,7 +11,8 @@ function renderViz(game) {
         quantile = setQuantile(countryEarnings);
        
         createMap(topology, countryEarnings);
-        populateLegend(quantile.quantiles());     
+        populateLegend(quantile.quantiles());  
+        populateSummaryTable(countryEarnings);   
       });
 }
 
@@ -44,13 +45,13 @@ function groupById(arr) {
     country = arr[i].code;
 
     if(country in obj) {
-      obj[country]["earnings"] += currencyToInt(arr[i].totalEarnings);
+      obj[country]["earnings"] += currencyToFloat(arr[i].totalEarnings);
       obj[country]["players"] +=1;
 
     } else {
       obj[country] = {
         name: arr[i].country,
-        earnings: currencyToInt(arr[i].totalEarnings),
+        earnings: currencyToFloat(arr[i].totalEarnings),
         players: 1     
       }
     }
@@ -58,14 +59,14 @@ function groupById(arr) {
   return obj;
 }
 
-function currencyToInt(num) {
-  
+function currencyToFloat(num) {
+
   num = Number(num.replace(/[^0-9\.]+/g,""));
   return num;
 
 }
 
-function intToCurrency(num) {
+function floatToCurrency(num) {
 
   if(typeof num != 'undefined') {
     return "$" + num.toFixed(0).replace(/./g, function(c, i, a) {
@@ -92,7 +93,7 @@ function tooltipEnter(d) {
 
 function tooltipContents(country) {
 
-  earnings = intToCurrency(country.earnings);
+  earnings = floatToCurrency(country.earnings);
 
     var contents = '<span class="title">' + country.name + '</span></br>' +
                     '<span class="description"> Total Prize Money: ' + earnings + '</span></br>' +

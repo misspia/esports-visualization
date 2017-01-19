@@ -5,7 +5,6 @@ function populateLegend(d) {
     legend.selectAll('.key').remove();
 
     for(var i = 0; i <= d.length; i ++) {
-        // var legendKey = legend.append('div')
         var legendKey = legend.append('rect')
             .attr('class', 'key q' + i )
             .append('span')

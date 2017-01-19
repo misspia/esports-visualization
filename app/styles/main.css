@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
-body {
+html, body {
   padding: 0;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -52,8 +52,8 @@ path {
 
 .title {
   font-weight: 400;
-  padding-bottom: 0.5em;
-  text-align: center; }
+  text-align: center;
+  padding: 0.2em 0; }
 
 .hidden {
   display: none; }
@@ -81,20 +81,19 @@ path {
   top: 1em; }
 
 #legend, #summary {
-  bottom: 0.5em; }
+  bottom: 1em; }
 
 #summary {
-  right: 0.5em; }
+  right: 1em; }
 
 #games, #summary {
-  padding: 0.5em 0;
+  padding: 0.5em;
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0em 0.1em 0.5em #b3abab; }
 
 #games {
   text-align: center;
-  min-width: 8em;
-  min-height: 9em; }
+  min-width: 8em; }
   #games .game {
     padding: 0.2em 0;
     cursor: pointer;
@@ -124,5 +123,16 @@ path {
       left: 2.5em; }
 
 #summary {
-  height: 12em;
-  width: 25em; }
+  font-size: 0.9em;
+  height: 15em;
+  width: 25em;
+  justify-content: space-around; }
+  #summary strong {
+    color: #08306b; }
+  #summary thead tr {
+    font-size: 0.7em;
+    font-weight: 400; }
+  #summary td {
+    padding: 0.1em 0.3em; }
+    #summary td:nth-child(2) {
+      width: 50%; }

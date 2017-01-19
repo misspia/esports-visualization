@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
-body{
+html, body{
   padding:0; margin:0;
   font-family: 'Open Sans', sans-serif;
   width:100vw; height:100vh;
@@ -29,8 +29,8 @@ path {
 
 .title {
   font-weight: 400;
-  padding-bottom:0.5em;
   text-align:center;
+  padding: 0.2em 0;
 }
 
 .hidden {
@@ -61,13 +61,13 @@ path {
   top:1em;
 }
 #legend, #summary{
-  bottom: 0.5em;
+  bottom: 1em;
 }
 #summary{
-  right:0.5em;
+  right:1em;
 }
 #games, #summary{
-  padding: 0.5em 0;
+  padding: 0.5em;
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0em 0.1em 0.5em #b3abab;
 }
@@ -75,7 +75,6 @@ path {
 #games { 
   text-align:center;
   min-width: 8em;
-  min-height: 9em;
 
   .game{
     padding: 0.2em 0; 
@@ -113,11 +112,24 @@ path {
 }
 
 #summary{
-  height:12em; width: 25em; 
-  // border: solid 0.1em #000;
+  font-size: 0.9em;
+  height:15em; width: 25em; 
+  justify-content: space-around;
+  
+  strong{
+    color: rgb(8,48,107); 
+  }
+  thead tr {
+    font-size: 0.7em;
+    font-weight:400;
+  }
+  td{
+    &:nth-child(2) {
+      width: 50%;
+    }
+    padding: 0.1em 0.3em;
+  }
 }
-
-
 
 
 
