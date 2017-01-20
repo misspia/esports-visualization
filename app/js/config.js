@@ -4,9 +4,10 @@ var idPrefix = "iso-";
 var width = window.innerWidth,
     height = window.innerHeight;
 
-var projection = d3.geoMercator()
+// var projection = d3.geoMercator()
+var projection = d3.geoOrthographic()
     .center([0, 0])
-    .scale((width / 600) * 80)
+    // .scale((width / 600) * 80)
     .translate([width / 2, height / 2])
     .rotate([-10,0]);
 
