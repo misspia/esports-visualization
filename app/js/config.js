@@ -1,3 +1,5 @@
+var dataPath = 'app/json/';
+var idPrefix = "iso-";
 
 var gameNames = {
     dota: "Dota 2",
@@ -5,37 +7,6 @@ var gameNames = {
     csgo: "CS:GO",
     sc2: "SC II"
 }
-
-var dataPath = 'app/json/';
-var idPrefix = "iso-";
-
-var width = window.innerWidth,
-    height = window.innerHeight;
-
-var projection = d3.geoOrthographic()
-    .center([0, 0])
-    .translate([width / 2, height / 2])
-
-var path = d3.geoPath()
-        .projection(projection);
-
-var origin = [0, -10],
-    velocity = [.012, -.002],
-    t0 = Date.now();
-
-
-function newSvg() {
-
-var svg = d3.select("#map").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-    return svg;
-}
-
-var tooltip = d3.select('body').append('div')
-            .attr('class', 'hidden tooltip');
-
 
 function objToArr(obj, inputKey) {
     var arr = [];
@@ -45,15 +16,53 @@ function objToArr(obj, inputKey) {
             var value = obj[objectKey][inputKey];
             arr.push(value);
           });
+        
     } else {    
         for(k in obj) {
             arr.push(obj[k]);
         }
-    }
-        
+    }        
     return arr;
 }
 
+function groupById(arr) {
+  var newArr = [], obj = {}, country;
+
+  for(var i = 0; i < arr.length; i ++) {
+    
+    country = arr[i].code;
+
+    if(country in obj) {
+      obj[country]["earnings"] += currencyToFloat(arr[i].totalEarnings);
+      obj[country]["players"] +=1;
+
+    } else {
+      obj[country] = {
+        name: arr[i].country,
+        earnings: currencyToFloat(arr[i].totalEarnings),
+        players: 1     
+      }
+    }
+  }
+  return obj;
+}
+
+function currencyToFloat(num) {
+
+  var newNum = Number(num.replace(/[^0-9\.]+/g,""));
+  return newNum;
+
+}
+
+function floatToCurrency(num) {
+
+  if(typeof num != 'undefined') {
+    var currency = "$" + num.toFixed(0).replace(/./g, function(c, i, a) {
+        return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+   });
+    return currency;
+  };
+}
 
 
 

@@ -1,3 +1,21 @@
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+var origin = [0, -15],
+    velocity = [.016, -.002],
+    t0 = Date.now();
+
+var projection = d3.geoOrthographic()
+    .center([0, 0])
+    .scale(height / 2.5)
+    .translate([width / 2, height / 2])
+
+var path = d3.geoPath()
+        .projection(projection);
+
+var tooltip = d3.select('body').append('div')
+            .attr('class', 'hidden tooltip');
+
 renderViz(selectedGame);
 
 function renderViz(game) {
@@ -12,24 +30,16 @@ function renderViz(game) {
        
         createMap(topology, countryEarnings);
         populateLegend(quantile.quantiles());  
-        populateSummaryTable(countryEarnings);  
-        
-       
+        populateSummaryTable(countryEarnings);    
     });
 }
 
 function createMap(topology, countryEarnings) {
     d3.select("#map svg").remove();
-    
-    // var projection = createProjection(rotateProjection());
-    // var projection = createProjection();
-    // var path = createPath(projection);
 
     var svg = newSvg();
 
-    var g = svg.append("g");
-
-    var feature = g.selectAll("path")
+    var country = svg.selectAll("path")
         .data(topojson.object(topology, topology.objects.countries)
             .geometries)
         .enter()
@@ -38,55 +48,33 @@ function createMap(topology, countryEarnings) {
           .attr("id", function(d){ return idPrefix + d.id; })
           .attr("class", function(d) { return colorClass(countryEarnings[d.id], "earnings") })
           .on('mousemove', function(d) { tooltipEnter(svg, d); })
-          .on('mouseout', function() { tooltip.classed('hidden', true); });
+          .on('mouseout', function() { tooltip.classed('hidden', true); })
 
-    d3.timer(function() {
-        var t = Date.now() - t0;
-        // projection.rotate([origin[0] + velocity[0] * t, origin[1] + velocity[1] * t]);
-        projection.rotate([origin[0] + velocity[0] * t, origin[1]]);
-        feature.attr("d", path);
-    })
+    rotateProjection(country);
+}
+
+function newSvg() {
+
+    var svg = d3.select("#map")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .call(d3.zoom()
+        .on("zoom", function () { zoom(svg); }))
+        .on("mousedown.zoom", null)
+      .append("g");
+
+    return svg;
 }
 
 
+function zoom(svg) {
+  
+  var zoomedSvg =  svg.attr("transform",
+         "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" 
+         + " scale(" + d3.event.transform.k + ")");
 
-function groupById(arr) {
-  var newArr = [], obj = {}, country;
-
-  for(var i = 0; i < arr.length; i ++) {
-    
-    country = arr[i].code;
-
-    if(country in obj) {
-      obj[country]["earnings"] += currencyToFloat(arr[i].totalEarnings);
-      obj[country]["players"] +=1;
-
-    } else {
-      obj[country] = {
-        name: arr[i].country,
-        earnings: currencyToFloat(arr[i].totalEarnings),
-        players: 1     
-      }
-    }
-  }
-  return obj;
-}
-
-function currencyToFloat(num) {
-
-  num = Number(num.replace(/[^0-9\.]+/g,""));
-  return num;
-
-}
-
-function floatToCurrency(num) {
-
-  if(typeof num != 'undefined') {
-    return "$" + num.toFixed(0).replace(/./g, function(c, i, a) {
-        return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
-   });
-  }
-    
+  return zoomedSvg;
 }
 
 function tooltipEnter(svg, d) {
@@ -113,6 +101,15 @@ function tooltipContents(country) {
                     '<span class="description"> Published Players: ' + country.players + '</span>';
 
     return contents;
+}
+
+function rotateProjection(country){
+    d3.timer(function() {
+        var t = Date.now() - t0;
+        projection.rotate([origin[0] + velocity[0] * t, origin[1] + velocity[1] * t]);
+        projection.rotate([origin[0] + velocity[0] * t, origin[1] ]);
+        country.attr("d", path);
+    })
 }
 
 
