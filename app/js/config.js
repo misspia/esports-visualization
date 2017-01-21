@@ -1,19 +1,3 @@
-var dataPath = 'app/json/';
-var idPrefix = "iso-";
-
-var width = window.innerWidth,
-    height = window.innerHeight;
-
-// var projection = d3.geoMercator()
-var projection = d3.geoOrthographic()
-    .center([0, 0])
-    // .scale((width / 600) * 80)
-    .translate([width / 2, height / 2])
-    .rotate([-10,0]);
-
-
- var path = d3.geoPath()
-        .projection(projection);
 
 var gameNames = {
     dota: "Dota 2",
@@ -21,6 +5,23 @@ var gameNames = {
     csgo: "CS:GO",
     sc2: "SC II"
 }
+
+var dataPath = 'app/json/';
+var idPrefix = "iso-";
+
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+var projection = d3.geoOrthographic()
+    .center([0, 0])
+    .translate([width / 2, height / 2])
+
+var path = d3.geoPath()
+        .projection(projection);
+
+var origin = [0, -10],
+    velocity = [.012, -.002],
+    t0 = Date.now();
 
 
 function newSvg() {
@@ -52,9 +53,6 @@ function objToArr(obj, inputKey) {
         
     return arr;
 }
-
-
-
 
 
 

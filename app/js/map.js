@@ -12,18 +12,24 @@ function renderViz(game) {
        
         createMap(topology, countryEarnings);
         populateLegend(quantile.quantiles());  
-        populateSummaryTable(countryEarnings);   
-      });
+        populateSummaryTable(countryEarnings);  
+        
+       
+    });
 }
 
 function createMap(topology, countryEarnings) {
     d3.select("#map svg").remove();
     
-    svg = newSvg();
+    // var projection = createProjection(rotateProjection());
+    // var projection = createProjection();
+    // var path = createPath(projection);
 
-    g = svg.append("g");
+    var svg = newSvg();
 
-      g.selectAll("path")
+    var g = svg.append("g");
+
+    var feature = g.selectAll("path")
         .data(topojson.object(topology, topology.objects.countries)
             .geometries)
         .enter()
@@ -31,8 +37,15 @@ function createMap(topology, countryEarnings) {
           .attr("d", path)
           .attr("id", function(d){ return idPrefix + d.id; })
           .attr("class", function(d) { return colorClass(countryEarnings[d.id], "earnings") })
-          .on('mousemove', function(d) { tooltipEnter(d); })
-          .on('mouseout', function() { tooltip.classed('hidden', true); });  
+          .on('mousemove', function(d) { tooltipEnter(svg, d); })
+          .on('mouseout', function() { tooltip.classed('hidden', true); });
+
+    d3.timer(function() {
+        var t = Date.now() - t0;
+        // projection.rotate([origin[0] + velocity[0] * t, origin[1] + velocity[1] * t]);
+        projection.rotate([origin[0] + velocity[0] * t, origin[1]]);
+        feature.attr("d", path);
+    })
 }
 
 
@@ -76,7 +89,7 @@ function floatToCurrency(num) {
     
 }
 
-function tooltipEnter(d) {
+function tooltipEnter(svg, d) {
   
     var country = countryEarnings[d.id];
 
