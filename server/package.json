@@ -3,10 +3,10 @@
     "cheerio": "latest",
     "fs": "0.0.1-security",
     "jquery": "^3.1.1",
-    "jsdom": "^9.9.1",
     "minimist": "^1.2.0",
+    "numeral": "^2.0.4",
     "request": "latest",
-    "scraperjs": "^1.2.0",
+    "tough-cookie": "^2.3.2",
     "underscore": "^1.8.3"
   }
 }

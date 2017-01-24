@@ -16,12 +16,12 @@ function objToArr(obj, inputKey) {
             var value = obj[objectKey][inputKey];
             arr.push(value);
           });
-        
-    } else {    
+
+    } else {
         for(k in obj) {
             arr.push(obj[k]);
         }
-    }        
+    }
     return arr;
 }
 
@@ -29,7 +29,7 @@ function groupById(arr) {
   var newArr = [], obj = {}, country;
 
   for(var i = 0; i < arr.length; i ++) {
-    
+
     country = arr[i].code;
 
     if(country in obj) {
@@ -40,7 +40,7 @@ function groupById(arr) {
       obj[country] = {
         name: arr[i].country,
         earnings: currencyToFloat(arr[i].totalEarnings),
-        players: 1     
+        players: 1
       }
     }
   }
@@ -48,9 +48,9 @@ function groupById(arr) {
 }
 
 function currencyToFloat(num) {
-
-  var newNum = Number(num.replace(/[^0-9\.]+/g,""));
-  return newNum;
+  return num;
+  //var newNum = Number(num.replace(/[^0-9\.]+/g,""));
+  //return newNum;
 
 }
 
@@ -63,8 +63,3 @@ function floatToCurrency(num) {
     return currency;
   };
 }
-
-
-
-
-
