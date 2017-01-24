@@ -35,7 +35,7 @@ function renderViz(game) {
 }
 
 function createMap(topology, countryEarnings) {
-    d3.select("#map svg").remove();
+    // d3.select("#map svg").remove();
 
     var svg = newSvg();
 

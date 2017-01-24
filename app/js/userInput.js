@@ -24,7 +24,10 @@ function selectGame(el, game) {
 			break;
 	}
 
-	renderViz(selectedGame);
+		renderViz(selectedGame);
+      	setTimeout(function(){ 
+			d3.select("#map svg").remove();
+      	}, 100);
 
 }
 
