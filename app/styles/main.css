@@ -9,6 +9,24 @@ html, body {
   font-weight: 300;
   font-size: 1em; }
 
+.source, .instructions {
+  position: absolute;
+  font-size: 0.8em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+.source {
+  top: 1em; }
+  .source a {
+    text-decoration: none;
+    padding: 0 0 0 0.3em;
+    color: inherit; }
+
+.instructions {
+  bottom: 1em; }
+
 path {
   stroke: white;
   stroke-width: 0.02em;
@@ -123,6 +141,7 @@ path {
       left: 2.5em; }
 
 #summary {
+  z-index: 1;
   font-size: 0.9em;
   height: 15em;
   width: 25em;
